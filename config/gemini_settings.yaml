@@ -1,0 +1,10 @@
+# 具体设置内容查看文档“about.md”
+safetySettings:
+  category: HARM_CATEGORY_DANGEROUS_CONTENT
+  threshold: BLOCK_ONLY_HIGH
+generationConfig:
+  stopSequences: stop_generation
+  temperature: 1.0
+  maxOutputTokens: 800
+  topP: 0.8
+  topK: 10

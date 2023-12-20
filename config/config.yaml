@@ -1,0 +1,21 @@
+QQBot:
+    # 从QQ机器人官网获取
+    appid: 123
+    token: xyz
+gemini:
+    # 自己搭建代理
+    proxy_url: http://example.com/
+    # 从ai.google.dev获取
+    api_key: "xyz"
+gpt:
+    # 自己搭建代理
+    proxy_url: http：//example.com
+    # 从opanai获取
+    api_key: "xyz"
+system:
+    # 配置服务器错误后发送的消息
+    error: "啊哦，服务器出现错误咯~"
+    # 配置文字转图片的字体，字体文件需要保存在static目录下
+    font: 'msyh.ttc'
+    # 配置默认的AI，可选值：gemini、gpt
+    default_ai: 'gpt'
