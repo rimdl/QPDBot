@@ -12,3 +12,9 @@ pip install -r requirements.txt
 ```shell
 python main.py
 ```
+
+## docker
+- 新建一个目录（例如命令中的`/path/to/config`），用于存放配置文件，下载本程序中的config文件夹下的三个文件，将相关配置设置好后，将其放置在你新建的目录下。
+```shell
+docker run --name=QPDBot -d -v /path/to/config:/app/config rjxinsi/qpdbot:latest
+```
