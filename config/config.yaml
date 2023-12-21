@@ -1,15 +1,17 @@
 QQBot:
     # 从QQ机器人官网获取
-    appid: 123
-    token: xyz
+    appid: "123"
+    # token: xyz
+    # 在qq-botpy 1.2.0中已废弃使用token，请使用secret
+    secret: "xyz"
 gemini:
     # 自己搭建代理
-    proxy_url: http://example.com/
+    proxy_url: "http://example.com/"
     # 从ai.google.dev获取
     api_key: "xyz"
 gpt:
     # 自己搭建代理
-    proxy_url: http：//example.com
+    proxy_url: "http：//example.com"
     # 从opanai获取
     api_key: "xyz"
 system:
