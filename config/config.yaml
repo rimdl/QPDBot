@@ -11,13 +11,16 @@ gemini:
     api_key: "xyz"
 gpt:
     # 自己搭建代理
-    proxy_url: "http：//example.com"
+    proxy_url: "http：//example.com/"
     # 从opanai获取
     api_key: "xyz"
+qwen:
+    api_key: 'xxx'
+    model: 'qwen-max' # 可选：qwen-turbo、qwen-plus、qwen-max、qwen-max-1201、qwen-max-longcontext；详情查看：https://help.aliyun.com/zh/dashscope/developer-reference/api-details?spm=a2c4g.11186623.0.0.3ba812b0m9H2i8
 system:
     # 配置服务器错误后发送的消息
     error: "啊哦，服务器出现错误咯~"
     # 配置文字转图片的字体，字体文件需要保存在static目录下
     font: 'msyh.ttc'
-    # 配置默认的AI，可选值：gemini、gpt
+    # 配置默认的AI，可选值：gemini、gpt、qwen
     default_ai: 'gpt'
