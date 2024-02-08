@@ -41,7 +41,7 @@ Pygments==2.17.2
 PySocks==1.7.1
 pytz==2023.3.post1
 PyYAML==6.0.1
-qq-botpy==1.1.2
+qq-botpy==1.2.0
 readability-lxml==0.8.1
 regex==2023.10.3
 requests~=2.31.0
