@@ -3,3 +3,4 @@
 /reset：清除会话历史
 /gpt：切换到gpt
 /gemini：切换到gemini
+/qwen：切换到通义千问

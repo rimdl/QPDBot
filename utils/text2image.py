@@ -22,3 +22,13 @@ async def text_to_image(text, font_path, font_size, image_format,sys_path):
     draw = ImageDraw.Draw(image)
     draw.text((0, 0), text, font=font, fill="black")
     image.save(sys_path+"/static/output."+image_format)
+
+
+if __name__ == "__main__":
+    text = '''Hello World! wowo存根图像插件\n FitsStubImagePlugin 已被移除。
+    无需处理器即可读取FITS图像 FitsImagePlugin 取而代之的是。字体大小和偏移方法自 9.2.
+    0 版本弃用.Removed in version 10.0.0删除了几个用于计算呈现文本的大小和偏移量的函数：'''
+    font_path = "../static/SmileySans-Oblique.ttf"
+    font_size = 32
+    image_format = "png"
+    text_to_image(text, font_path, font_size, image_format)

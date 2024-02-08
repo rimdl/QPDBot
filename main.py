@@ -15,17 +15,13 @@ if __name__ == '__main__':
         help = yaml.load(file.read(), Loader=yaml.FullLoader)
     with open(sys_path + "/config/chatgpt_settings.yaml", "r", encoding='utf-8') as file:
         chatgpt_settings = yaml.load(file.read(), Loader=yaml.FullLoader)
+    with open(sys_path + "/config/qwen_settings.yaml", "r", encoding='utf-8') as file:
+        qwen_settings = yaml.load(file.read(), Loader=yaml.FullLoader)
 
     bot = ""
-    if config['gemini']['api_key'] == "" and config['gpt']['api_key'] == "":
+    if config['gemini']['api_key'] == "" and config['gpt']['api_key'] == "" and config['qwen']['api_key'] == "":
         print(">>AI未配置，请配置后启动程序！<<")
         sys.exit()
-    elif config['gemini']['api_key'] == "" and config['gpt']['api_key'] != "":
-        print(">>gemini未配置，启动chatgpt<<")
-        bot = "gpt"
-    elif config['gemini']['api_key'] != "" and config['gpt']['api_key'] == "":
-        print(">>chatgpt未配置，启动gemini<<")
-        bot = "gemini"
     else:
         bot = config['system']['default_ai']
         print(">>AI已配置，默认启动" + bot + "<<")
@@ -34,7 +30,9 @@ if __name__ == '__main__':
     client.config = config
     client.gemini_settings = gemini_settings
     client.chatgpt_settings = chatgpt_settings
+    client.qwen_settings = qwen_settings
     client.chatgpt_history = [{"role": "system", "content": chatgpt_settings['preset']}]
+    client.qwen_history = [{"role": "system", "content": qwen_settings['preset']}]
     client.help = help
     client.sys_path = sys_path
     appid = config['QQBot']['appid']

@@ -3,6 +3,7 @@ import botpy
 from botpy.message import Message
 import AI.gemini as gemini
 import AI.chatgpt as gpt
+import AI.qwen as qwen
 import utils.check_url as check_url
 import utils.text2image as text2image
 
@@ -12,11 +13,13 @@ class MyClient(botpy.Client):
     config = None
     gemini_settings = None
     chatgpt_settings = None
+    qwen_settings = None
     help = None
     chatbot = gemini
     reply_text = ""
     gemini_history = {'contents': []}
     chatgpt_history = []
+    qwen_history = []
 
     def __init__(self, intents,bot):
         super().__init__(intents)
@@ -24,6 +27,8 @@ class MyClient(botpy.Client):
             self.chatbot = gemini
         elif bot == "gpt":
             self.chatbot = gpt
+        elif bot == "qwen":
+            self.chatbot = qwen
     async def send_message(self,message):
         contain_url = await check_url.check_url(self.reply_text)
         if contain_url and self.reply_text != "":
@@ -68,12 +73,24 @@ class MyClient(botpy.Client):
                                       result['promptFeedback']['blockReason'] + "]"
             else:
                 self.reply_text = self.config['system']['error'] + "[错误码：" + response.status_code + "]"
+        else:
+            print(response.text)
     def chat_with_chatgpt(self, message, text):
         if not message.attachments:
             self.chatgpt_history.append({"role": "user", "content": text})
             response = gpt.chat_text_only(self.chatgpt_history, self.config, self.chatgpt_settings)
             ChatCompletionMessage = response.choices[0].message
             self.chatgpt_history.append({'role': ChatCompletionMessage.role, 'content': ChatCompletionMessage.content})
+            self.reply_text = ChatCompletionMessage.content
+        else:
+            self.reply_text = "暂不支持读取附件哦"
+
+    def chat_with_qwen(self,message, text):
+        if not message.attachments:
+            self.qwen_history.append({"role": "user", "content": text})
+            response = qwen.chat_text_only(self.qwen_history, self.config, self.qwen_settings)
+            ChatCompletionMessage = response.output.choices[0].message
+            self.qwen_history.append({'role': ChatCompletionMessage.role, 'content': ChatCompletionMessage.content})
             self.reply_text = ChatCompletionMessage.content
         else:
             self.reply_text = "暂不支持读取附件哦"
@@ -91,6 +108,9 @@ class MyClient(botpy.Client):
         elif text == "/gpt":
             self.chatbot = gpt
             self.reply_text = '已切换至[chatgpt]'
+        elif text == "/qwen":
+            self.chatbot = qwen
+            self.reply_text = '已切换至[通义千问]'
         elif text == "/reset":
             self.gemini_history = []
             self.chatgpt_history = [{"role": "system", "content": self.chatgpt_settings['preset']}]
@@ -100,4 +120,6 @@ class MyClient(botpy.Client):
                 self.chat_with_gemini(message, text)
             elif self.chatbot == gpt:
                 self.chat_with_chatgpt(message, text)
+            elif self.chatbot == qwen:
+                self.chat_with_qwen(message, text)
         await self.send_message(message)
