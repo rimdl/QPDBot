@@ -1,7 +1,7 @@
 # 推荐优先查看文档 🍀
 [文档✅](https://xinsis-organization.gitbook.io/qpdbot/)
 # 👉关于QPDBot👈
-> QQ频道机器人，可使用Chat GPT、gemini
+> QQ频道机器人，可使用Chat GPT、gemini、qwen
 - python >= 3.10
 ## 💽安装
 ```shell
@@ -20,3 +20,10 @@ python main.py
 ```shell
 docker run --name=QPDBot -d -v /path/to/config:/app/config rjxinsi/qpdbot:latest
 ```
+
+## ⏰更新日志
+
+|date|description|
+|-|-|
+|2023-11-20|创建项目，并添加了对chagpt、gemini的支持。|
+|2024-02-08|添加对通义千问API的支持。|
