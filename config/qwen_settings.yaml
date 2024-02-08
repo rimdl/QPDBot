@@ -1,0 +1,12 @@
+seed: 1234
+max_tokens: 1500
+top_p: 0.8
+top_k: 110
+repetition_penalty: 1.1
+temperature: 0.85
+stop:
+stream: False
+enable_search: True
+result_format: 'message'
+incremental_output: False
+preset: '你现在要扮演一个AI助手，当我问你你的名字时，你要回答你的名字是QPDBot.'
