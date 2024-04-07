@@ -9,6 +9,7 @@ gemini:
     proxy_url: "http://example.com/"
     # 从ai.google.dev获取
     api_key: "xyz"
+    model: "gemini-1.0-pro-latest"
 gpt:
     # 自己搭建代理
     proxy_url: "http：//example.com/"
@@ -24,3 +25,4 @@ system:
     font: 'msyh.ttc'
     # 配置默认的AI，可选值：gemini、gpt、qwen
     default_ai: 'gpt'
+

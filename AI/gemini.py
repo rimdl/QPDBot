@@ -10,11 +10,12 @@ def chat_text_only(text, config, gemini_settings):
     if text and config:
         proxy_url = config['gemini']['proxy_url']
         api_key = config['gemini']['api_key']
+        model = config['gemini']['model']
         if not proxy_url.endswith("/"):
             proxy_url += "/"
         data = json.dumps({"contents": [{"parts": [{"text": text}]}],"safetySettings": gemini_settings['safetySettings'],"generationConfig": gemini_settings['generationConfig']})
         headers = {'Content-Type': 'application/json'}
-        response = requests.post(proxy_url + "v1beta/models/gemini-pro:generateContent?key=" + api_key, data=data,headers=headers)
+        response = requests.post(proxy_url + "v1beta/models/"+model+":generateContent?key=" + api_key, data=data,headers=headers)
         return response
     else:
         return None
@@ -47,10 +48,11 @@ def chat_multi_turn(history, config, gemini_settings):
         history['generationConfig'] = gemini_settings['generationConfig']
         proxy_url = config['gemini']['proxy_url']
         api_key = config['gemini']['api_key']
+        model = config['gemini']['model']
         if not proxy_url.endswith("/"):
             proxy_url += "/"
         data = json.dumps(history)
         headers = {'Content-Type': 'application/json'}
-        response = requests.post(proxy_url + "v1beta/models/gemini-pro:generateContent?key=" + api_key, data=data,
+        response = requests.post(proxy_url + "v1beta/models/"+model+":generateContent?key=" + api_key, data=data,
                                  headers=headers)
         return response
