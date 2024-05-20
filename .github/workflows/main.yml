@@ -1,23 +1,47 @@
-name: build docker image and push aliyun
+name: Build Python Application with Alpine and PyInstaller
 
-on: [push, pull_request] # 触发事件
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  bt-product-release:
-    if: ${{ github.ref == 'refs/heads/main' }}  # 检测main分支是否有更新
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2 # pull代码到运行服务器上
-    - name: Login to Aliyun Container Registry (ACR)
-      uses: aliyun/acr-login@v1 # 使用阿里云镜像服务action
-      with:
-        login-server: registry.cn-hangzhou.aliyuncs.com # 务必正确填写镜像容器服务的登录地址
-        region-id: cn-hangzhou # 务必正确填写镜像容器服务的登录地址
-        username: "${{ secrets.ALIYUN_REGISTRY_USERNAME }}" # 引用GitHub repo设置的镜像容器服务用户名
-        password: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}" # 引用GitHub repo设置的镜像容器服务密码
-    - name: Build and Push Docker Image
-      env:
-        IMAGE_TAG: "test" # 用于标记容器版本号
-      run: |
-        docker build -t registry.cn-hangzhou.aliyuncs.com/xinsi_q/qpdbot:$IMAGE_TAG .
-        docker push registry.cn-hangzhou.aliyuncs.com/xinsi_q/qpdbot:$IMAGE_TAG
+      - uses: actions/checkout@v3
+
+      - name: Set up Alpine base image
+        run: docker pull alpine:latest
+
+      - name: Build Python application with PyInstaller
+        run: |
+          docker run --rm -v ${GITHUB_WORKSPACE}:/app alpine:latest \
+            apk add python3 py3-pip
+            pip3 install pyinstaller
+            pip3 install -r requirements.txt
+            pyinstaller --onefile --name QPDBot main.py
+            ldd dist/QPDBot > shared_libraries.txt
+            ls
+
+      - name: Login to Aliyun Container Registry (ACR)
+        uses: aliyun/acr-login@v1 # 使用阿里云镜像服务action
+        with:
+          login-server: registry.cn-hangzhou.aliyuncs.com # 务必正确填写镜像容器服务的登录地址
+          region-id: cn-hangzhou # 务必正确填写镜像容器服务的登录地址
+          username: "${{ secrets.ALIYUN_REGISTRY_USERNAME }}" # 引用GitHub repo设置的镜像容器服务用户名
+          password: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}" # 引用GitHub repo设置的镜像容器服务密码
+      - name: Build and Push Docker Image
+        env:
+          IMAGE_TAG: "test" # 用于标记容器版本号
+        run: |
+          docker build -t registry.cn-hangzhou.aliyuncs.com/xinsi_q/qpdbot:$IMAGE_TAG .
+          docker push registry.cn-hangzhou.aliyuncs.com/xinsi_q/qpdbot:$IMAGE_TAG
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: shared_libraries
+          path: shared_libraries.txt
