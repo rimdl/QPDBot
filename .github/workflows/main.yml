@@ -22,7 +22,7 @@ jobs:
             apk add python3 py3-pip
             pip3 install pyinstaller
             pip3 install -r requirements.txt
-            pyinstaller --onefile --collect-all --name QPDBot main.py
+            pyinstaller --onefile --static --name QPDBot main.py
             ls
 
       - name: Login to Aliyun Container Registry (ACR)
