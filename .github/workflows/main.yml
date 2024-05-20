@@ -23,6 +23,7 @@ jobs:
             pip3 install pyinstaller
             pip3 install -r requirements.txt
             pyinstaller --onefile --name QPDBot main.py
+            ls
 
       - name: Login to Aliyun Container Registry (ACR)
         uses: aliyun/acr-login@v1 # 使用阿里云镜像服务action
