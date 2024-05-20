@@ -4,7 +4,7 @@
 a = Analysis(
     ['main.py'],
     pathex=[],
-    binaries=[("/lib/x86_64-linux-gnu/libdl.so.2","."),("/lib/x86_64-linux-gnu/libz.so.1","."),(""/lib/x86_64-linux-gnu/libpthread.so.0"","."),("/lib/x86_64-linux-gnu/libc.so.6","."),("/lib64/ld-linux-x86-64.so.2",".")],
+    binaries=[("/lib/x86_64-linux-gnu/libdl.so.2","."),("/lib/x86_64-linux-gnu/libz.so.1","."),("/lib/x86_64-linux-gnu/libpthread.so.0","."),("/lib/x86_64-linux-gnu/libc.so.6","."),("/lib64/ld-linux-x86-64.so.2",".")],
     datas=[],
     hiddenimports=[],
     hookspath=[],
