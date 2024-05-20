@@ -1,8 +1,9 @@
 FROM alpine:latest  
 WORKDIR /app  
-COPY ./dist /app  
+COPY . /app  
 VOLUME /app/config
 RUN apk add python3
 RUN apk add py3-pip
-RUN chmod +x QPDBot
-CMD ["./QPDBot"]
+RUN pip install -U pip
+RUN pip install -r requirements.txt  
+CMD ["python","main.py"]
