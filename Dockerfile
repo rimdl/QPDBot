@@ -4,4 +4,4 @@ COPY ./dist /app
 VOLUME /app/config
 RUN ls
 RUN chmod +x QPDBot
-CMD ["./QPDBot"]
+CMD ["ls","./app/QPDBot"]
