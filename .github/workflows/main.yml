@@ -22,10 +22,10 @@ jobs:
             apk add python3 py3-pip zip
             pip3 install pyinstaller
             pip3 install -r requirements.txt
-            pyi-makespec -F main.py
-            ls
+            pyinstaller -F main.spec
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: spec
-          path: main.spec
+          name: main
+          path: dist/main
