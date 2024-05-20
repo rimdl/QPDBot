@@ -23,9 +23,10 @@ jobs:
             pip3 install pyinstaller
             pip3 install -r requirements.txt
             pyinstaller -F main.spec
+            ls
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: main
+          name: spec
           path: dist/main
